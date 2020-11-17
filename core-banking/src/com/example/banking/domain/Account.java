@@ -3,7 +3,8 @@ package com.example.banking.domain;
 // Entity
 public class Account {
 	private final String iban;
-	private double balance;
+	// default permission, package private
+	protected double balance; // information hiding principle
 	
 	public Account(String iban, double balance) {
 		this.iban = iban;
@@ -27,6 +28,7 @@ public class Account {
 	}
 	
 	public boolean withdraw(double amount) {
+		System.out.println("Account::withdraw");
 		// validation
 		if (amount <= 0.0) return false;
 		// business rule

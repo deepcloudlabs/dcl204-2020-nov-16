@@ -9,7 +9,8 @@ public class AccountApp {
 		acc1.withdraw(75_000.);
 		acc1.deposit(10_000);
 		acc1.withdraw(50_000);
-		System.out.println(acc1);
+		
+		System.out.println(acc1.getBalance());
 	}
 
 }
