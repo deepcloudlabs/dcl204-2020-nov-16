@@ -5,8 +5,9 @@ public class Account {
 	private final String iban;
 	// default permission, package private
 	protected double balance; // information hiding principle
+	private AccountStatus status = AccountStatus.ACTIVE;
 	
-	public Account(String iban, double balance) {
+	public Account(final String iban,final double balance) {
 		this.iban = iban;
 		this.balance = balance;
 	}
@@ -19,7 +20,15 @@ public class Account {
 		return balance;
 	}
 	
-	public boolean deposit(double amount) {
+	public AccountStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(AccountStatus status) {
+		this.status = status;
+	}
+
+	public final boolean deposit(double amount) {
 		// validation
 		if (amount <= 0.0) return false; 
 		// business logic

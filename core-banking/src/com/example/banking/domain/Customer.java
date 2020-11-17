@@ -3,12 +3,11 @@ package com.example.banking.domain;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.ToDoubleFunction;
 
 // Alt + Shift + S : Generate Source Code     Alt+Insert
 // Ctrl + Shift + F : Format Code             Ctrl + Alt + format(L)a
 // Ctrl + Shift + O : Organize Import         Ctrl + Alt + I
-public class Customer { // Class -> i. attribute, ii. behaviour -> method
+public final class Customer { // Class -> i. attribute, ii. behaviour -> method
 	private final String identity; // attribute/state/data
 	private String fullname;
 	private final int birthYear;
