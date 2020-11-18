@@ -8,6 +8,7 @@ public class FastRandomNumberService implements RandomNumberService {
 
 	@Override
 	public int generate(int begin, int end) {
+		System.out.println("FastRandomNumberService::generate");
 		return ThreadLocalRandom.current().nextInt(begin, end);
 	}
 

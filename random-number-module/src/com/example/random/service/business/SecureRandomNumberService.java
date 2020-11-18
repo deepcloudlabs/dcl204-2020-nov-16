@@ -9,6 +9,7 @@ public class SecureRandomNumberService implements RandomNumberService {
 
 	@Override
 	public int generate(int begin, int end) {
+		System.out.println("SecureRandomNumberService::generate");
 		return random.nextInt(end - begin + 1) + begin;
 	}
 
