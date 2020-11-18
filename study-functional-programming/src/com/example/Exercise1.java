@@ -80,5 +80,8 @@ public class Exercise1 {
 		employees.stream()
 		         .max(Comparator.comparing(Employee::getSalary))
 		         .ifPresent(System.out::println);   
+		employees.stream()
+				.min(Comparator.comparing(Employee::getSalary))
+				.ifPresent(System.out::println);   
 	}
 }
