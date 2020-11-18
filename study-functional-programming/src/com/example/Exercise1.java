@@ -1,5 +1,6 @@
 package com.example;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -39,7 +40,7 @@ public class Exercise1 {
 		         .reduce(0.0, Double::sum);
         // Stream API methods: 
         //  i. intermediary methods: filter, map, distinct, limit, sorted, boxed, ...
-        // ii. terminal methods: collect, reduce, sum, count, min, max, findFirst, findAny, ...
+        // ii. terminal methods: forEach, collect, reduce, sum, count, min, max, findFirst, findAny, ...
         // Lazy Evaluation: terminal method triggers processing
         long count = employees.stream()
         		      .filter(employee -> employee.getDepartment()==Department.IT)
@@ -63,10 +64,21 @@ public class Exercise1 {
         Map<Department, Long> departmentMap =
         		employees.stream()
                  .collect(Collectors.groupingBy(
-                		 Employee::getDepartment,Collectors.counting()
+                		 Employee::getDepartment,
+                		 Collectors.counting()
                 		));
         Consumer<Entry<Department, Long>> printEntry =
         		entry -> System.out.println(entry.getKey()+": "+entry.getValue()) ;
 		departmentMap.entrySet().forEach(printEntry);
+		employees.stream()
+		         .sorted(Comparator.comparing(Employee::getSalary).reversed())
+		         .forEach(System.out::println);
+		employees.stream()
+		         .sorted(Comparator.comparing(Employee::getSalary).reversed())
+		         .findFirst()
+		         .ifPresent(System.out::println);   		         
+		employees.stream()
+		         .max(Comparator.comparing(Employee::getSalary))
+		         .ifPresent(System.out::println);   
 	}
 }
