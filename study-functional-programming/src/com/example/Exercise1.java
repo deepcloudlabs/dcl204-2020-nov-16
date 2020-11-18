@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import com.example.entity.Department;
@@ -82,6 +83,11 @@ public class Exercise1 {
 		         .ifPresent(System.out::println);   
 		employees.stream()
 				.min(Comparator.comparing(Employee::getSalary))
-				.ifPresent(System.out::println);   
+				.ifPresent(System.out::println); 
+		Comparator<Employee> maxBySalary = 
+				Comparator.comparing(Employee::getSalary);
+		employees.stream()
+		         .collect(Collectors.groupingBy(Employee::getGender,Collectors.maxBy(maxBySalary)))
+		         .forEach((gender,emp)->emp.ifPresent(employee -> System.out.println(gender+": "+employee)));
 	}
 }
