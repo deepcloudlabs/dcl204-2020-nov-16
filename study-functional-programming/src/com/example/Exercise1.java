@@ -1,6 +1,10 @@
 package com.example;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 import com.example.entity.Department;
 import com.example.entity.Employee;
@@ -35,7 +39,7 @@ public class Exercise1 {
 		         .reduce(0.0, Double::sum);
         // Stream API methods: 
         //  i. intermediary methods: filter, map, distinct, limit, sorted, boxed, ...
-        // ii. terminal methods: reduce, sum, count, min, max, findFirst, findAny, ...
+        // ii. terminal methods: collect, reduce, sum, count, min, max, findFirst, findAny, ...
         // Lazy Evaluation: terminal method triggers processing
         long count = employees.stream()
         		      .filter(employee -> employee.getDepartment()==Department.IT)
@@ -51,6 +55,18 @@ public class Exercise1 {
         		.filter(Department.IT::equals)
         		.map(department -> 1)
         		.reduce(0, Integer::sum);
-        
+        // Department.IT -> {ben, james}
+        // Department.SALES -> {sun}
+        // Department.FINANCE -> {kate}
+        // Department.MARKETING -> {jin} 
+        // Department.HR -> {jack} 
+        Map<Department, Long> departmentMap =
+        		employees.stream()
+                 .collect(Collectors.groupingBy(
+                		 Employee::getDepartment,Collectors.counting()
+                		));
+        Consumer<Entry<Department, Long>> printEntry =
+        		entry -> System.out.println(entry.getKey()+": "+entry.getValue()) ;
+		departmentMap.entrySet().forEach(printEntry);
 	}
 }
