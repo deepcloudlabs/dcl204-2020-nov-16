@@ -6,11 +6,12 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.example.banking.domain.Account;
 import com.example.banking.domain.CheckingAccount;
 import com.example.banking.domain.Customer;
+import com.example.banking.domain.InsufficientBalanceException;
 
 @SuppressWarnings("unused")
 public class StudyPolymorphism {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InsufficientBalanceException {
 		Account account; // Account, CheckingAccount
 		
 		boolean headOrTail = ThreadLocalRandom.current().nextBoolean();
