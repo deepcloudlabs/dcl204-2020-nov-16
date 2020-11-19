@@ -1,7 +1,7 @@
 package com.example.banking.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +33,7 @@ class AccountTest {
 	@DisplayName("withdraw negative amount should return false")
 	void withdrawNegativeAmountShouldReturnFalse(double amount) {
 		Account account = new Account("tr1", 10_000);
-		assertFalse(account.withdraw(amount));
+		assertThrows(IllegalArgumentException.class, () -> account.withdraw(amount));
 		assertEquals(10_000., account.getBalance());
 	}
 
@@ -42,16 +42,16 @@ class AccountTest {
 	@DisplayName("withdraw amount greater than balance should return false")
 	void withdrawOverBalanceShouldReturnFalse(double amount) {
 		Account account = new Account("tr1", 10_000);
-		assertFalse(account.withdraw(amount));
+		assertThrows(InsufficientBalanceException.class, () -> account.withdraw(amount));
 		assertEquals(10_000., account.getBalance());
 	}
 
 	@ParameterizedTest
 	@ValueSource(doubles = { 0.1, 1.0, 10_000.0 })	
 	@DisplayName("withdraw all balance should return true")
-	void withdrawAllBalanceShouldReturnTrue(double balance) {
+	void withdrawAllBalanceShouldReturnTrue(double balance) throws Throwable {
 		Account account = new Account("tr1", balance);
-		assertTrue(account.withdraw(balance));
+		account.withdraw(balance);
 		assertEquals(0., account.getBalance());
 	}
 
@@ -60,7 +60,7 @@ class AccountTest {
 	@DisplayName("deposit with negative amount should return false")
 	void depositiveNegativeAmountShouldReturnFalse(double amount) {
 		Account account = new Account("tr1", 10_000);
-		assertFalse(account.deposit(amount));
+		assertThrows(IllegalArgumentException.class, () -> account.deposit(amount));
 		assertEquals(10_000, account.getBalance());
 	}
 
@@ -71,9 +71,10 @@ class AccountTest {
 		"100.0,100.0,200.0"
 	})
 	@DisplayName("deposit with positive amount should return true")
-	void depositivePositiveAmountShouldReturnTrue(double balance,double amount,double newBalance) {
+	void depositivePositiveAmountShouldReturnTrue(double balance,double amount,double newBalance) 
+			throws Throwable {
 		Account account = new Account("tr1", balance);
-		assertTrue(account.deposit(amount));
+		account.deposit(amount);
 		assertEquals(newBalance, account.getBalance());
 	}
 

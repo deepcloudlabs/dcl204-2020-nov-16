@@ -14,7 +14,8 @@ public class LotteryApp {
 				ServiceLoader.load(RandomNumberService.class);
 		for (RandomNumberService rns : randomNumberServices) {
 			System.out.println(rns.getClass());
-		    lotterySrv.setRandomNumberService(rns);
+			// dependency injection framework: spring, cdi (java ee), guice,...
+		    lotterySrv.setRandomNumberService(rns); 
 		    lotterySrv.draw(70, 6, 1).forEach(System.out::println);
 		}
 	}
